@@ -1,0 +1,49 @@
+<style>
+  #el {
+    width: 100px;
+    height: 100px;
+    background-color: skyblue;
+    margin: 4px;
+  }
+  #el2 {
+    width: 100px;
+    height: 100px;
+    background-color: skyblue;
+    margin: 4px;
+  }
+</style>
+<div id="el"></div>
+<div id="el2"></div>
+<button onclick="start()">start</button>
+<button onclick="pause()">pause</button>
+<button onclick="resume()">resume</button>
+<button onclick="restart()">restart</button>
+<script>
+  let el = document.getElementById("el");
+  let el2 = document.getElementById("el2");
+
+  function start() {
+    el.style.transition = "ease 5s";
+    el.style.transform = "translateX(300px)";
+    el2.style.transition = "ease 5s";
+    el2.style.transform = "translateX(300px)";
+  }
+
+  function pause() {
+    el.style.transform = getComputedStyle(el).transform;
+    el2.style.transform = getComputedStyle(el2).transform;
+  }
+
+  function resume() {
+    el.style.transform = "translateX(300px)";
+    el2.style.transform = "translateX(300px)";
+  }
+
+  function restart() {
+    el.style.transition = "node";
+    el.style.transform = "translateX(0px)";
+    el2.style.transition = "node";
+    el2.style.transform = "translateX(0px)";
+    setTimeout(() => start(), 16);
+  }
+</script>

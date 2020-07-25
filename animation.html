@@ -1,0 +1,61 @@
+<style>
+  .rect {
+    width: 100px;
+    height: 100px;
+    background-color: skyblue;
+    margin: 4px;
+  }
+</style>
+<div id="el" class="rect">el</div>
+<div id="el2" class="rect">el2</div>
+<button id="start-btn">start</button>
+<button id="pause-btn">pause</button>
+<button id="resume-btn">resume</button>
+<button id="restart-btn">restart</button>
+<button id="el2-btn">el2 add</button>
+<script type="module">
+  import { Timeline, Animation, RGBAAnimation } from "./animation.js";
+  import { cubicBezier } from "./cubicBezier.js";
+  const ease = (t) => cubicBezier(0.25, 0.1, 0.25, 0.1);
+  const linear = (t) => t;
+
+  let tl = new Timeline();
+  let el = document.getElementById("el");
+  let animation = new Animation({
+    object: el.style,
+    property: "transform",
+    template: (val) => `translateX(${val}px)`,
+    start: 0,
+    end: 300,
+    duration: 5000,
+    timingFunction: linear,
+  });
+  tl.add(animation);
+
+  document.getElementById("start-btn").addEventListener("click", () => {
+    tl.start();
+  });
+  document.getElementById("pause-btn").addEventListener("click", () => {
+    tl.pause();
+  });
+  document.getElementById("resume-btn").addEventListener("click", () => {
+    tl.resume();
+  });
+  document.getElementById("restart-btn").addEventListener("click", () => {
+    tl.restart();
+  });
+
+  let el2 = document.getElementById("el2");
+  document.getElementById("el2-btn").addEventListener("click", () => {
+    console.log("el2")
+    let animation = new RGBAAnimation({
+      object: el2.style,
+      property: "backgroundColor",
+      start: { r: 0, g: 0, b: 0, a: 1 },
+      end: { r: 255, g: 0, b: 0, a: 1 },
+      duration: 5000,
+      timingFunction: linear,
+    });
+    tl.add(animation);
+  });
+</script>
